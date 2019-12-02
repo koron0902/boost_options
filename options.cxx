@@ -10,12 +10,18 @@ int main(const int argc, const char* argv[]){
 
 	options_description desc("おぷしょん");
 	desc.add_options()
-			("nyan, n", value<int>()->default_value(3), "にゃ～ん")
-			("myon, m", value<std::string>()->default_value("みょみょみょ"), "みょん")
-			("help, h", "へるぷ");
+			("nyan,n", value<int>()->default_value(3), "にゃ～ん")
+			("myon,m", value<std::string>()->default_value("みょみょみょ"), "みょん")
+			("help,h", "へるぷ");
 
 	variables_map vm;
 	store(parse_command_line(argc, argv, desc), vm);
+
+	if(vm.count("help")){
+		std::cout << desc << std::endl;
+		return 0;
+	}
+
 	auto nyan = vm["nyan"].as<int>();
 	auto myon = vm["myon"].as<std::string>();
 
